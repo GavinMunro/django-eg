@@ -5,4 +5,5 @@ MarkupSafe==1.1.1
 pytz==2021.1
 sqlparse==0.4.1
 djangorestframework==3.6.2
-
+wheel==0.36.2
+psycopg2==2.7.1  # Requires python3-dev
