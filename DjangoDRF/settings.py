@@ -62,10 +62,8 @@ ROOT_URLCONF = 'DjangoDRF.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.jinja2.Jinja2'
-        ,
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],  # For admin to work
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,6 +74,9 @@ TEMPLATES = [
             ],
         },
     },
+    {'BACKEND': 'django.template.backends.jinja2.Jinja2',
+        'DIRS': [BASE_DIR / 'templates']
+    }
 ]
 
 WSGI_APPLICATION = 'DjangoDRF.wsgi.application'
