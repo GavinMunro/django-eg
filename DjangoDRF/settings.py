@@ -76,7 +76,7 @@ TEMPLATES = [
     },
     {'BACKEND': 'django.template.backends.jinja2.Jinja2',
         'DIRS': [BASE_DIR / 'templates']
-    }
+     }
 ]
 
 WSGI_APPLICATION = 'DjangoDRF.wsgi.application'
@@ -87,8 +87,12 @@ WSGI_APPLICATION = 'DjangoDRF.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'car_sales_drf',
+        'USER': 'dodgy_bros',
+        'PASSWORD': 'cash_is_king',  # ToDo: Change pwd and store in .env
+        'HOST': '127.0.0.1',
+        'PORT': '5432'
     }
 }
 
