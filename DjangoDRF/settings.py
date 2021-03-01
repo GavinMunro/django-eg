@@ -90,7 +90,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'car_sales_drf',
         'USER': 'dodgy_bros',
-        'PASSWORD': 'cash_is_king',  # ToDo: Change pwd and store in .env
+        'PASSWORD': 'cash_is_King',  # ToDo: Change pwd and store in .env
         'HOST': '127.0.0.1',
         'PORT': '5432'
     }
