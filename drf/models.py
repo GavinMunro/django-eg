@@ -34,9 +34,16 @@ class Vehicle(models.Model):
     year: models.DateField()
 
 
-class Sale(models.Model):
-    sale_price: models.DecimalField(decimal_places=2)
+class Ad(models.Model):
+    seller: models.ForeignKey(Seller, on_delete=models.CASCADE, null=False, blank=False)
+    vehicle: models.ForeignKey(Vehicle, on_delete=models.CASCADE, null=False, blank=False)
+    asking_price: models.DecimalField(decimal_places=2, null=False)
 
+
+class Sale(models.Model):
+    buyer: models.ForeignKey(Buyer, on_delete=models.CASCADE, null=False, blank=False)
+    vehicle: models.ForeignKey(Vehicle, on_delete=models.CASCADE, null=False, blank=False)
+    sale_price: models.DecimalField(decimal_places=2)
 
 
 class Email(models.Model):
