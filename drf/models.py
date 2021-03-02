@@ -3,12 +3,16 @@ from django.db import models
 
 class Vehicle(models.Model):
     """ Vehicle details """
+    # id: models.AutoField(auto_created=True, default=1, primary_key=True, serialize=False, verbose_name='ID')
     vin: models.CharField(max_length=64, null=False, primary_key=True)
     rego: models.CharField(max_length=6, null=False, unique=True)
     make: models.CharField(max_length=32, null=False)
     model: models.CharField(max_length=32, null=False)
     year: models.IntegerField(max_length=4, null=False)
-
+    
+    def get_vin(self):
+        return self.vin
+    
     def get_rego(self):
         return self.rego
 
