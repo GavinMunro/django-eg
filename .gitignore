@@ -11,6 +11,7 @@ venv/
 
 *.db
 *.json
+drf/temp/
 temp.html
 notes.txt
 
