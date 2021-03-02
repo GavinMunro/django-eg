@@ -3,6 +3,8 @@
 from django.db import migrations, models
 import django.db.models.deletion
 
+from drf.models import Seller, Vehicle, Buyer
+
 
 class Migration(migrations.Migration):
 
@@ -13,46 +15,72 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Ad',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-            ],
-        ),
-        migrations.CreateModel(
             name='Person',
             fields=[
                 ('email', models.CharField(max_length=80, primary_key=True, serialize=False)),
-                ('firstname', models.CharField(max_length=32)),
-                ('lastname', models.CharField(max_length=32)),
-                ('mobile', models.CharField(max_length=16)),
-                ('dob', models.DateTimeField(auto_now_add=True)),
+                ('firstname', models.CharField(max_length=32, null=False)),
+                ('lastname', models.CharField(max_length=32, null=False)),
+                ('mobile', models.CharField(max_length=16, null=False)),
+                ('dob', models.DateField()),
                 ('updated_at', models.DateTimeField(auto_now=True)),
-            ],
+            ]
+        ),
+        migrations.CreateModel(
+            name='Vehicle',
+            fields=[
+                ('vin', models.CharField(max_length=64, primary_key=True, serialize=False)),
+                ('rego', models.CharField(max_length=6, null=False, unique=True)),
+                ('make', models.CharField(max_length=32, null=False)),
+                ('model', models.CharField(max_length=32, null=False)),
+                ('year', models.IntegerField(max_length=4, null=False))
+            ]
+        ),
+        migrations.CreateModel(
+            name='Buyer',
+            fields=[(
+                'person_ptr',
+                models.OneToOneField(
+                    auto_created=True,
+                    on_delete=django.db.models.deletion.CASCADE,
+                    parent_link=True,
+                    primary_key=True,
+                    serialize=False,
+                    to='drf.Person'
+                )
+            )],
+            bases=('drf.person',)
+        ),
+        migrations.CreateModel(
+            name='Seller',
+            fields=[(
+                'person_ptr',
+                models.OneToOneField(
+                    auto_created=True,
+                    on_delete=django.db.models.deletion.CASCADE,
+                    parent_link=True,
+                    primary_key=True,
+                    serialize=False,
+                    to='drf.Person'
+                )
+            )],
+            bases=('drf.person',)
+        ),
+        migrations.CreateModel(
+            name='Ad',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                # ('seller', models.ForeignKey('Seller', on_delete=models.CASCADE, null=False, blank=False)),
+                # ('vehicle', models.ForeignKey('Vehicle', on_delete=models.CASCADE, null=False, blank=False)),
+                # ('asking_price', models.DecimalField(decimal_places=2, null=False, default=0))
+            ]
         ),
         migrations.CreateModel(
             name='Sale',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Vehicle',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Buyer',
-            fields=[
-                ('person_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='drf.Person')),
-            ],
-            bases=('drf.person',),
-        ),
-        migrations.CreateModel(
-            name='Seller',
-            fields=[
-                ('person_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='drf.Person')),
-            ],
-            bases=('drf.person',),
-        ),
+                # ('buyer', models.ForeignKey('Buyer', on_delete=models.CASCADE, null=False, blank=False)),
+                # ('vehicle', models.ForeignKey('Vehicle', on_delete=models.CASCADE, null=False, blank=False)),
+                # ('sale_price', models.DecimalField(decimal_places=2, null=False, default=0))
+            ]
+        )
     ]

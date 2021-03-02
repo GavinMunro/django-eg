@@ -7,7 +7,7 @@ class Vehicle(models.Model):
     rego: models.CharField(max_length=6, null=False, unique=True)
     make: models.CharField(max_length=32, null=False)
     model: models.CharField(max_length=32, null=False)
-    year: models.DateField(null=False)
+    year: models.IntegerField(max_length=4, null=False)
 
     def get_rego(self):
         return self.rego
@@ -23,8 +23,7 @@ class Person(models.Model):
     firstname = models.CharField(max_length=32, null=False)
     lastname = models.CharField(max_length=32, null=False)
     mobile = models.CharField(max_length=16, null=False)
-
-    dob = models.DateTimeField(auto_now_add=True)
+    dob = models.DateField()
     updated_at = models.DateTimeField(auto_now=True)
     
     def get_email(self):
