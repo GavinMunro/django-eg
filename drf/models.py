@@ -1,12 +1,29 @@
 from django.db import models
 
 
-# Person may need 2 swubtypes - Buyer and Seller
+class Vehicle(models.Model):
+    """ Vehicle details """
+    vin: models.CharField(max_length=64, null=False, primary_key=True)
+    rego: models.CharField(max_length=6, null=False, unique=True)
+    make: models.CharField(max_length=32, null=False)
+    model: models.CharField(max_length=32, null=False)
+    year: models.DateField(null=False)
+
+    def get_rego(self):
+        return self.rego
+
+    def __repr__(self):
+        return self.rego + ' is added.'
+    
+
+# Person may need 2 subtypes - Buyer and Seller
 class Person(models.Model):
     """ Customer details - name phone number etc. """
-    name = models.CharField(max_length=255)
-    mobile = models.CharField(max_length=16)
-    email = models.CharField(max_length=80)
+    email = models.CharField(max_length=80, null=False, primary_key=True)
+    firstname = models.CharField(max_length=32, null=False)
+    lastname = models.CharField(max_length=32, null=False)
+    mobile = models.CharField(max_length=16, null=False)
+
     dob = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
@@ -14,7 +31,7 @@ class Person(models.Model):
         return self.email
     
     def __repr__(self):
-        return self.name + ' is added.'
+        return self.email + ' is added.'
 
 
 class Seller(Person):
@@ -25,13 +42,6 @@ class Seller(Person):
 class Buyer(Person):
     """ Details applicable only to a user buying a vehicle. """
     pass
-
-
-class Vehicle(models.Model):
-    # Vehicle details
-    make: models.CharField(max_length=32)
-    model: models.CharField(max_length=32)
-    year: models.DateField()
 
 
 class Ad(models.Model):
@@ -46,15 +56,17 @@ class Sale(models.Model):
     sale_price: models.DecimalField(decimal_places=2)
 
 
-class Email(models.Model):
-    pass
-    # These are the details the web site owner should receive when a sale is agreed.
-    # vehicle details
-    # seller's details
-    # sale price
-    # The name of the interested party
-    # The mobile number of the interested party
-    # The Dodgy Brothers commission (5%) in dollars
-    # The net amount that is transferrable to the seller
+# class Email(models.Model):
+#     """ These are the details the web site owner should receive when a sale is agreed.
+#     vehicle details
+#     seller's details
+#     sale price
+#     The name of the interested party
+#     The mobile number of the interested party
+#     The Dodgy Brothers commission (5%) in dollars
+#     The net amount that is transferrable to the seller
+#     """
+#     pass  # This will be generated from existing fields and will be moved into a view.
+#
 
 
