@@ -7,3 +7,5 @@ sqlparse==0.4.1
 djangorestframework==3.12.2
 wheel==0.36.2
 psycopg2==2.8.6  # Requires python3-dev
+pytest==6.2.2
+pytest-bdd==4.0.2
