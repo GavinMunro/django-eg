@@ -2,9 +2,24 @@
 
 {% block content %}
 
-    <h4>Looking to buy a car? We'll get you stitched up!</h4>
-
     <h4>Selling your car? List your car here!</h4>
     <button>List Vehicle</button>
 
+    <h4>Looking to buy a car? We'll get you stitched up!</h4>
+    <div class="col-lg-8">
+    {% for car in cars %}
+        <div class="row">
+           <div class="card mb-2">
+            <img class="card-img-top" src="{{ car.image }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ car.make }}</h5>
+                <p class="card-text">{{ car.model }}</p>
+                <a href="{{ url('vehicle_details', args=[Vehicle.id]) }}" class="btn btn-primary">
+                    View Car
+                </a>
+            </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 {% endblock %}
