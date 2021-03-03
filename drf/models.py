@@ -9,8 +9,8 @@ class Person(models.Model):
     firstname = models.CharField(max_length=32, null=False, blank=False)
     lastname = models.CharField(max_length=32, null=False, blank=False)
     mobile = models.CharField(max_length=16, null=False, blank=False)
-    dob = models.DateField()
-    updated_at = models.DateTimeField(auto_now=True)
+    # dob = models.DateField()
+    # updated_at = models.DateTimeField(auto_now=True)
     
     def get_email(self):
         return self.email
