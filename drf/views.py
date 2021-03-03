@@ -7,6 +7,10 @@ from .models import Person, Vehicle, Ad, Sale
 from .serializers import PersonSerializer, VehicleSerializer, AdSerializer, SaleSerializer
 
 
+def index(request):
+    return render(request, 'home.html', {})
+
+
 @api_view(['GET', 'DELETE', 'PUT'])
 def get_delete_update_person(request, pk):
     try:

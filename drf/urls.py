@@ -1,4 +1,5 @@
 from django.conf.urls import url
+from django.urls import path
 from . import views
 
 urlpatterns = [
@@ -11,5 +12,6 @@ urlpatterns = [
         r'^api/v1/people/$',
         views.get_post_people,
         name='get_post_people'
-    )
+    ),
+    path('', views.index, name='home page'),
 ]
