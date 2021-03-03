@@ -1,32 +1,14 @@
 from django.db import models
 
 
-class Vehicle(models.Model):
-    """ Vehicle details """
-    # id: models.AutoField(auto_created=True, default=1, primary_key=True, serialize=False, verbose_name='ID')
-    vin: models.CharField(max_length=64, null=False, primary_key=True)
-    rego: models.CharField(max_length=6, null=False, unique=True)
-    make: models.CharField(max_length=32, null=False)
-    model: models.CharField(max_length=32, null=False)
-    year: models.IntegerField(max_length=4, null=False)
-    
-    def get_vin(self):
-        return self.vin
-    
-    def get_rego(self):
-        return self.rego
-
-    def __repr__(self):
-        return self.rego + ' is added.'
-    
-
-# Person may need 2 subtypes - Buyer and Seller
 class Person(models.Model):
     """ Customer details - name phone number etc. """
-    email = models.CharField(max_length=80, null=False, primary_key=True)
-    firstname = models.CharField(max_length=32, null=False)
-    lastname = models.CharField(max_length=32, null=False)
-    mobile = models.CharField(max_length=16, null=False)
+    # id: models.AutoField(auto_created=True, default=1, primary_key=True, serialize=False, verbose_name='ID')
+    id = models.BigIntegerField(primary_key=True)
+    email = models.CharField(max_length=80, null=False, blank=False, unique=True)
+    firstname = models.CharField(max_length=32, null=False, blank=False)
+    lastname = models.CharField(max_length=32, null=False, blank=False)
+    mobile = models.CharField(max_length=16, null=False, blank=False)
     dob = models.DateField()
     updated_at = models.DateTimeField(auto_now=True)
     
@@ -37,39 +19,53 @@ class Person(models.Model):
         return self.email + ' is added.'
 
 
-class Seller(Person):
-    """ Details applicable only to a user selling a vehicle. """
-    pass
+# class Seller(Person):
+#     """ Person subtype for details applicable only to a user selling a vehicle. """
+#     pass
+#
+#
+# class Buyer(Person):
+#     """ Person subtype for details applicable only to a user buying a vehicle. """
+#     pass
 
 
-class Buyer(Person):
-    """ Details applicable only to a user buying a vehicle. """
-    pass
+class Vehicle(models.Model):
+    """ Vehicle details """
+    # id: models.AutoField(auto_created=True, default=1, primary_key=True, serialize=False, verbose_name='ID')
+    id = models.BigIntegerField(primary_key=True)
+    vin: models.CharField(max_length=64, null=False, blank=False, unique=True)
+    rego: models.CharField(max_length=6, null=False, blank=False, unique=True)
+    make: models.CharField(max_length=32, null=False, blank=False)
+    model: models.CharField(max_length=32, null=False, blank=False)
+    year: models.IntegerField(max_length=4, null=False, blank=False)
+    # If we didn't keep history and cars could only be advertised and sold once:
+    # ad_by: models.ForeignKey(Person, on_delete=models.CASCADE)
+    # sold_to: models.ForeignKey(Person, on_delete=models.CASCADE)
+    # asking_price: models.DecimalField(decimal_places=2, null=False)
+    # agreed_price: models.DecimalField(decimal_places=2, null=False)
+    
+    def get_vin(self):
+        return self.vin
+    
+    def get_rego(self):
+        return self.rego
+
+    def get_make(self):
+        return self.rego + ' is a ' + self.make
+    
+    def __repr__(self):
+        return self.rego + ' is added.'
 
 
 class Ad(models.Model):
-    seller: models.ForeignKey(Seller, on_delete=models.CASCADE, null=False, blank=False)
+    seller: models.ForeignKey(Person, on_delete=models.CASCADE, null=False, blank=False)
     vehicle: models.ForeignKey(Vehicle, on_delete=models.CASCADE, null=False, blank=False)
     asking_price: models.DecimalField(decimal_places=2, null=False)
-
+    placed: models.DateField
+    
 
 class Sale(models.Model):
-    buyer: models.ForeignKey(Buyer, on_delete=models.CASCADE, null=False, blank=False)
+    buyer: models.ForeignKey(Person, on_delete=models.CASCADE, null=False, blank=False)
     vehicle: models.ForeignKey(Vehicle, on_delete=models.CASCADE, null=False, blank=False)
     sale_price: models.DecimalField(decimal_places=2)
-
-
-# class Email(models.Model):
-#     """ These are the details the web site owner should receive when a sale is agreed.
-#     vehicle details
-#     seller's details
-#     sale price
-#     The name of the interested party
-#     The mobile number of the interested party
-#     The Dodgy Brothers commission (5%) in dollars
-#     The net amount that is transferrable to the seller
-#     """
-#     pass  # This will be generated from existing fields and will be moved into a view.
-#
-
-
+    bought: models.DateField

@@ -3,7 +3,7 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Vehicle, Person, Ad, Sale, Buyer, Seller
+from .models import Person, Vehicle, Ad, Sale
 from .serializers import PersonSerializer, VehicleSerializer, AdSerializer, SaleSerializer
 
 
@@ -33,3 +33,16 @@ def get_post_people(request):
     # insert a new record for a person
     elif request.method == 'POST':
         return Response({})
+
+
+# def gen_email(models.Model):
+#     """ These are the details the web site owner should receive when a sale is agreed.
+#     vehicle details
+#     seller's details
+#     sale price
+#     The name of the interested party
+#     The mobile number of the interested party
+#     The Dodgy Brothers commission (5%) in dollars
+#     The net amount that is transferrable to the seller
+#     """
+#     pass  # This will be generated from existing fields and will be moved into a view.
