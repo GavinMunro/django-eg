@@ -8,7 +8,7 @@ from .serializers import PersonSerializer, VehicleSerializer, AdSerializer, Sale
 
 
 def index(request):
-    return render(request, 'home.html', {})
+    return render(request, 'index.html', {})
 
 
 @api_view(['GET', 'DELETE', 'PUT'])
