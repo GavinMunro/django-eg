@@ -10,3 +10,4 @@ psycopg2==2.8.6  # Requires python3-dev
 pytest==6.2.2
 pytest-bdd==4.0.2
 requests==2.25.1
+python-dotenv==0.15
