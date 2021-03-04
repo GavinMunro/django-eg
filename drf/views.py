@@ -33,7 +33,9 @@ def get_delete_update_person(request, pk):
 def get_post_people(request):
     # get all people
     if request.method == 'GET':
-        return Response({})
+        people = Person.objects.all()
+        serializer = PersonSerializer(people, many=True)
+        return Response(serializer.data)
     # insert a new record for a person
     elif request.method == 'POST':
         return Response({})
