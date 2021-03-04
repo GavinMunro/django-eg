@@ -14,4 +14,6 @@ urlpatterns = [
         name='get_post_people'
     ),
     path('', views.index, name='home page'),
+    path("<int:pk>/", views.new_cust, name="new_cust"),
+    path("<category>/", views.list_car, name="list_car"),
 ]

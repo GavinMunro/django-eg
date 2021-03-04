@@ -5,12 +5,53 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import Person, Vehicle, Ad, Sale
 from .serializers import PersonSerializer, VehicleSerializer, AdSerializer, SaleSerializer
+from .forms import CarForm, CustomerForm
 
 
 def index(request):
     return render(request, 'index.html', {})
 
 
+def new_cust(request, email):
+    form = CustomerForm(request.POST)
+    if form.is_valid():
+        person = Person(
+            email=form.cleaned_data["email"],
+            firstname=form.cleaned_data["firstname"],
+            lastname=form.cleaned_data["lastname"],
+            mobile=form.cleaned_data["mobile"],
+        )
+        person.save()
+    person = Person.objects.get(email=email)
+    context = {
+        "person": person,
+        "form": form,
+    }
+    return render(request, "cust_detail.html", context)
+
+
+def list_car(request, login):
+    seller = Person.objects.get(id=login)
+    
+    form = CarForm(request.POST)
+    if form.is_valid():
+        car = Vehicle(
+            vin=form.cleaned_data["vin"],
+            rego=form.cleaned_data["email"],
+            make=form.cleaned_data["firstname"],
+            model=form.cleaned_data["lastname"],
+            year=form.cleaned_data["mobile"],
+        )
+        car.save()
+    cars = Vehicle.objects.get(seller=seller)
+    context = {
+        "seller": seller,
+        "cars": cars,
+        "form": form,
+    }
+    return render(request, "car_detail.html", context)
+
+ 
 @api_view(['GET', 'DELETE', 'PUT'])
 def get_delete_update_person(request, pk):
     try:
