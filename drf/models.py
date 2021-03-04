@@ -3,8 +3,8 @@ from django.db import models
 
 class Person(models.Model):
     """ Customer details - name phone number etc. """
-    # id: models.AutoField(auto_created=True, default=1, primary_key=True, serialize=False, verbose_name='ID')
-    id = models.BigIntegerField(primary_key=True)
+    id: models.AutoField(auto_created=True, default=1, primary_key=True, serialize=False, verbose_name='ID')
+    # id = models.BigIntegerField(primary_key=True)
     email = models.CharField(max_length=80, null=False, blank=False, unique=True)
     firstname = models.CharField(max_length=32, null=False, blank=False)
     lastname = models.CharField(max_length=32, null=False, blank=False)
@@ -31,8 +31,8 @@ class Person(models.Model):
 
 class Vehicle(models.Model):
     """ Vehicle details """
-    # id: models.AutoField(auto_created=True, default=1, primary_key=True, serialize=False, verbose_name='ID')
-    id = models.BigIntegerField(primary_key=True)
+    id: models.AutoField(auto_created=True, default=1, primary_key=True, serialize=False, verbose_name='ID')
+    # id = models.BigIntegerField(primary_key=True)
     vin: models.CharField(max_length=64, null=False, blank=False, unique=True)
     rego: models.CharField(max_length=6, null=False, blank=False, unique=True)
     make: models.CharField(max_length=32, null=False, blank=False)
